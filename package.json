@@ -3,8 +3,12 @@
 	"displayName": "Makefile Creator",
 	"description": "Create Makefile.",
         "publisher": "zenor",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"icon": "res/gnu.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Zenor27/makefile-creator"
+	},
 	"engines": {
 		"vscode": "^1.30.0"
 	},

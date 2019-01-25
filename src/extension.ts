@@ -4,7 +4,13 @@ import * as fs from 'fs';
 function get_flags(context: vscode.ExtensionContext, config: vscode.WorkspaceConfiguration) {
 	let cxx = "CXX = " + config.makefile_cxx;
 	let cxxflags = "CXXFLAGS = " + config.makefile_cxxflags;
+	if (config.makefile_use_asan) {
+		cxxflags += " -fsanitize=address";
+	}
 	let ldflags = "LDFLAGS = " + config.makefile_ldflags;
+	if (config.makefile_use_asan) {
+		ldflags += " -fsanitize=address";
+	}
 	var flags = "";
 
 	flags += cxx + '\n';
@@ -58,7 +64,7 @@ function create_makefile(context: vscode.ExtensionContext, uri: vscode.Uri) {
 	makefile += get_flags(context, config);
 	makefile += '\n';
 	makefile += "SRC = " + get_source_files(context, uri) + '\n';
-	makefile += "OBJ = $(SRC:.cc=.o)\n";	
+	makefile += "OBJ = $(SRC:.cc=.o)\n";
 
 	let options: vscode.InputBoxOptions = {
 		prompt: "Name of executable: ",
@@ -72,7 +78,7 @@ function create_makefile(context: vscode.ExtensionContext, uri: vscode.Uri) {
 		makefile += '\n';
 		makefile += get_core();
 		let path = uri.fsPath + '/Makefile';
-		fs.writeFile(path, makefile, function(err) {  
+		fs.writeFile(path, makefile, function(err) {
 			if (err) {
 				throw err;
 			}

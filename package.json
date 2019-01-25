@@ -2,12 +2,12 @@
 	"name": "makefile-creator",
 	"displayName": "Makefile Creator",
 	"description": "Create Makefile.",
-        "publisher": "zenor",
+	"publisher": "zenor",
 	"version": "0.0.2",
 	"icon": "res/gnu.png",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Zenor27/makefile-creator"
+		"url": "https://github.com/zenor27/makefile-creator.git"
 	},
 	"engines": {
 		"vscode": "^1.30.0"
@@ -20,19 +20,20 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands":[
+		"commands": [
 			{
 				"command": "extension.makefile-creator",
 				"title": "Create Makefile"
 			}
 		],
-		"menus": 
-		{
-			"explorer/context": [{
-				"command": "extension.makefile-creator",
-				"when": "explorerResourceIsFolder",
-				"title": "Create Makefile"
-			}]
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "extension.makefile-creator",
+					"when": "explorerResourceIsFolder",
+					"title": "Create Makefile"
+				}
+			]
 		},
 		"configuration": {
 			"type": "object",
@@ -41,17 +42,27 @@
 				"makefile-creator.makefile_cxx": {
 					"type": "string",
 					"default": "g++",
-					"description": "CXX"
+					"description": "Set the CXX"
 				},
 				"makefile-creator.makefile_cxxflags": {
 					"type": "string",
-					"default": "-Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address",
-					"description": "CXXFLAGS"
+					"default": "-Wall -Werror -Wextra -pedantic -std=c++17 -g",
+					"description": "Set the CXXFLAGS"
 				},
 				"makefile-creator.makefile_ldflags": {
 					"type": "string",
-					"default": "-fsanitize=address",
-					"description": "LDFLAGS"
+					"default": "",
+					"description": "Set the LDFLAGS"
+				},
+				"makefile-creator.makefile_ldlibs": {
+					"type": "string",
+					"default": "",
+					"description": "Set the LDLIBS"
+				},
+				"makefile-creator.makefile_use_asan": {
+					"type": "boolean",
+					"default": true,
+					"description": "Use libasan (if available)"
 				}
 			}
 		}
